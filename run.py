@@ -16,9 +16,10 @@ sales = SHEET.worksheet('sales')  # access tab sales on our worksheet
 
 
 def get_sales_data():
-
     """
     Get sales figures input from the user
+    Function will loop indefinitely until the data entered
+    by the user passes validation
     """
     while True:
         print('Please enter sales data from last market.')
@@ -30,8 +31,10 @@ def get_sales_data():
         sales_data = data_str.split(",")    # breaks up data at the commas
 
         if validate_data(sales_data):
-           print("Data is valid")
-           break    # breaks out of while True loop
+            print("Data is valid\n")
+            break    # breaks out of while True loop
+
+    return sales_data
 
 
 def validate_data(values):
@@ -48,8 +51,19 @@ def validate_data(values):
     except ValueError as e:
         print(f"Invalid data: {e}. Please try again.\n")
         return False
-    
+
     return True
 
 
-get_sales_data()
+def update_sales_worksheet(data):
+    """
+    Updates sales worksheet; adds new row with the list data provided
+    """
+    sales_worksheet = SHEET.worksheet("sales")
+    sales_worksheet.append_row(data)
+    print("Sales worksheet updated successfully\n")
+
+
+data = get_sales_data()
+sales_data = [int(num) for num in data]
+update_sales_worksheet(sales_data)
