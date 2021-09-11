@@ -10,11 +10,13 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('love_sandwiches')  #opens spreadsheet on gdrive
+SHEET = GSPREAD_CLIENT.open('love_sandwiches')  # opens spreadsheet on gdrive
 
-sales = SHEET.worksheet('sales')  #access tab sales on our worksheet
+sales = SHEET.worksheet('sales')  # access tab sales on our worksheet
+
 
 def get_sales_data():
+
     """
     Get sales figures input from the user
     """
@@ -24,5 +26,6 @@ def get_sales_data():
 
     data_str = input('Enter your data here: ')
     print(f'The data entered is {data_str}')
+
 
 get_sales_data()
